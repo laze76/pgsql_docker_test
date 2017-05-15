@@ -31,7 +31,9 @@ RUN apt-get update \
 
 RUN pgxnclient install temporal_tables
 
-# TODO: remove ca-sertificates, gcc, make
+RUN apt-get purge -y --auto-remove ca-certificates gcc make
+
+COPY temporal_tables.sql /docker-entrypoint-initdb.d/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
